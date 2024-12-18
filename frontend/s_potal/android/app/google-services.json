@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "881383890993",
+    "project_id": "prepilly-31aeb",
+    "storage_bucket": "prepilly-31aeb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881383890993:android:741edf912f64c9da7cf510",
+        "android_client_info": {
+          "package_name": "com.example.s_potal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881383890993-tp0j6kk0oqdkhn8brnuklih4kqq4fbme.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.s_potal",
+            "certificate_hash": "2a6c4f72644dc78e3918de2ceef3c4fc130c4484"
+          }
+        },
+        {
+          "client_id": "881383890993-gq3v2vcbbv689eduk5fccc5po944c7dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5UEhi83bV11yDfgFX7WACEbXKaafxgh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881383890993-gq3v2vcbbv689eduk5fccc5po944c7dc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "881383890993-138erne10bvajf5av2gpre76f2b8ltnq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tPotal"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881383890993:android:d0c0a0b1ca0350967cf510",
+        "android_client_info": {
+          "package_name": "com.example.t_potal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881383890993-gq5hpjg4ev5o222mjtk7841u7aj0id37.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.t_potal",
+            "certificate_hash": "2a6c4f72644dc78e3918de2ceef3c4fc130c4484"
+          }
+        },
+        {
+          "client_id": "881383890993-gq3v2vcbbv689eduk5fccc5po944c7dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5UEhi83bV11yDfgFX7WACEbXKaafxgh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881383890993-gq3v2vcbbv689eduk5fccc5po944c7dc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "881383890993-138erne10bvajf5av2gpre76f2b8ltnq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tPotal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
