@@ -52,6 +52,17 @@ class CourseController extends GetxController {
     loadingController.hideLoader();
   }
 
+ // Fetch courses by category
+  Future<void> fetchCoursesByCategory(String category) async {
+    try {
+      final fetchedCourses = await _courseService.fetchCoursesByCategory(category);
+      courses.assignAll(fetchedCourses);
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    } finally {
+    }
+  }
+
   // Update an existing course by ID
   Future<void> updateCourse(String id, Course course) async {
     final updatedCourse = await _courseService.updateCourseById(id, course);
@@ -64,12 +75,12 @@ class CourseController extends GetxController {
   }
 
   // Delete a course by ID
-  // Future<void> deleteCourse(String id) async {
-  //   final isDeleted = await _courseService.deleteCourseById(id);
-  //   if (isDeleted) {
-  //   //  courses.removeWhere((course) => course.id == id);
-  //   }
-  // }
+  Future<void> deleteCourse(String id) async {
+    final isDeleted = await _courseService.deleteCourseById(id);
+    if (isDeleted) {
+    //  courses.removeWhere((course) => course.id == id);
+    }
+  }
 
   Future idFetchForCurrentCourse() async {
     await fetchAllCourses();

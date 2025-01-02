@@ -32,6 +32,20 @@ export const getStudentByUid = async (req, res) => {
   }
 };
 
+export const getByEmail = async  (req, res) => {
+    const { email } = req.body;
+    try {
+      const user = await Student.findOne({ email });
+      if (user) {
+        res.status(200).json({ success: true });
+      } else {
+        res.status(404).json({ success: false });
+      }
+    } catch (error) {
+      res.status(500).json({ success: false, message: 'Server error', error });
+    }
+  };
+
 // Update a student
 export const updateStudent = async (req, res) => {
   try {

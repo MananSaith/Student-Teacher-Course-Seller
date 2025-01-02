@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:form_validator/form_validator.dart';
 import 'package:get/get.dart';
 
 import '../../constant/colorclass.dart';
@@ -23,121 +22,120 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final LoginController controller = Get.put(LoginController());
   final LoaderController loader = Get.put(LoaderController());
-  GlobalKey<FormState> key = GlobalKey<FormState>();
   @override
-  void dispose() {
-    controller.email.clear();
-    controller.password.clear();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-           Container(
-            height: height,
-            width: width,
-            decoration:  BoxDecoration(
-               image: DecorationImage(
-                image: AssetImage(MyText.teacherBackgrounLoginPik),
-                fit: BoxFit.cover, // Cover the entire screen
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            Container(
+              height: height,
+              width: width,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(MyText.teacherBackgrounLoginPik),
+                  fit: BoxFit.cover, // Cover the entire screen
+                ),
               ),
             ),
-          ),
-          Container(
-            height: height,
-            width: width,
-            color: MyColors.transparentBgPallet,
-          ),
-
-           Form(
-          key: key,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: height * 0.2),
-                  TextWidget(
-                    text: MyText.login,
-                    fSize: 35,
-                    fWeight: MyFontWeight.extra,
-                  ),
-                  SizedBox(height: height * 0.035),
-                  TextFormField(
-                    controller: controller.email,
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: true, // Enable autocorrect
-                    enableSuggestions: true, // Allow suggestions
-                    textInputAction: TextInputAction.next,
-                    decoration: inputDecorationWidget(
-                        text: MyText.email,
-                        bdcolor: MyColors.white,
-                        prefixIcon: const Icon(Icons.email)),
-                    validator:
-                        ValidationBuilder().email().maxLength(25).build(),
-                  ),
-                  SizedBox(height: height * 0.025),
-                  TextFormField(
-                    controller: controller.password,
-                    obscureText: true,
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: inputDecorationWidget(
-                        text: MyText.password,
-                        bdcolor: MyColors.white,
-                        prefixIcon: const Icon(Icons.password)),
-                    validator:
-                        ValidationBuilder().minLength(8).maxLength(25).build(),
-                  ),
-                  SizedBox(height: height * 0.025),
-                  Obx(() {
-                    return CustomElevatedButton(
-                      width: width,
-                      backgroundColor: MyColors.primaryPallet,
-                      textColor: MyColors.white,
-                      startIcon: Icon(
-                        Icons.login,
-                        color: MyColors.lowWhite,
-                      ),
+            Container(
+              height: height,
+              width: width,
+              color: MyColors.transparentBgPallet,
+            ),
+            Form(
+                child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: height * 0.2),
+                    TextWidget(
                       text: MyText.login,
+                      fSize: 35,
+                      fWeight: MyFontWeight.extra,
+                    ),
+                    SizedBox(height: height * 0.035),
+                    TextFormField(
+                      // controller: controller.email,
+                      keyboardType: TextInputType.emailAddress,
+                      autocorrect: true, // Enable autocorrect
+                      enableSuggestions: true, // Allow suggestions
+                      textInputAction: TextInputAction.next,
+                      decoration: inputDecorationWidget(
+                          text: MyText.email,
+                          bdcolor: MyColors.white,
+                          prefixIcon: const Icon(Icons.email)),
+                    ),
+                    SizedBox(height: height * 0.025),
+                    TextFormField(
+                      //controller: controller.password,
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: inputDecorationWidget(
+                          text: MyText.password,
+                          bdcolor: MyColors.white,
+                          prefixIcon: const Icon(Icons.password)),
+                    ),
+                    SizedBox(height: height * 0.025),
+                    Obx(() {
+                      return CustomElevatedButton(
+                        width: width,
+                        backgroundColor: MyColors.primaryPallet,
+                        textColor: MyColors.white,
+                        startIcon: Icon(
+                          Icons.login,
+                          color: MyColors.lowWhite,
+                        ),
+                        text: MyText.login,
+                        isLoading: loader.loader.value,
+                        onPressed: () {
+                          controller.firebaseLoginWithEmailPassword();
+                        },
+                      );
+                    }),
+                    SizedBox(height: height * 0.025),
+                    Obx(() {
+                      return CustomElevatedButton(
+                        width: width,
+                        backgroundColor: MyColors.primaryPallet,
+                        textColor: MyColors.white,
+                        startIcon: Icon(
+                          Icons.login,
+                          color: MyColors.lowWhite,
+                        ),
+                        text: MyText.loginWithGoogle,
+                        isLoading: loader.loader.value,
+                        onPressed: () {
+                          controller.firebaseLoginWithEmailPassword();
+                        },
+                      );
+                    }),
+                    SizedBox(height: height * 0.055),
+                    CustomElevatedButton(
+                      width: width,
+                      backgroundColor: MyColors.secondaryPallet,
+                      textColor: MyColors.white,
+                      startIcon: Image.asset(
+                        MyText.googleIcon,
+                        height: height * 0.045,
+                      ),
+                      text: MyText.continoueWithGoogle,
+                      fontSize: 20,
                       isLoading: loader.loader.value,
                       onPressed: () {
-                        if (key.currentState?.validate() ?? false) {
-                          controller.firebaseLoginWithEmailPassword();
-                        }
+                        Get.to(() => const SignupScreen());
                       },
-                    );
-                  }),
-                  SizedBox(height: height * 0.055),
-                  CustomElevatedButton(
-                    width: width,
-                    backgroundColor: MyColors.secondaryPallet,
-                    textColor: MyColors.white,
-                    startIcon: Image.asset(
-                      MyText.googleIcon,
-                      height: height * 0.045,
                     ),
-                    text: MyText.continoueWithGoogle,
-                    fontSize: 20,
-                    isLoading: loader.loader.value,
-                    onPressed: () {
-                       Get.to(()=>const SignupScreen());
-                    },
-                  ),
-                ],
-              ),
-            ),
-          )),
-   
                   ],
-      )
-      
-       );
+                ),
+              ),
+            )),
+          ],
+        ));
   }
 }

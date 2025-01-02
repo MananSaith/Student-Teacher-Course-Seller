@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:get/get.dart';
 import 'std_json.dart';
 import 'student_service.dart';

@@ -8,8 +8,7 @@ import 'controllers/Utils_Controller/wrapper.dart';
 import 'firebase_options.dart';
 
 void main() async {
-
-   ZIMKit().init(
+  ZIMKit().init(
     appID: MyText.zegoChatId, // your appid
     appSign: MyText.zegoAppSign, // your appSign
   );
@@ -18,7 +17,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
- 
   runApp(const MyApp());
 }
 
@@ -26,6 +24,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    precacheImage(AssetImage("assets/teacherlogin.jpg"), context);
     return GetMaterialApp(
       title: MyText.appName,
       debugShowCheckedModeBanner: false,

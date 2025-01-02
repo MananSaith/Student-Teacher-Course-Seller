@@ -1,0 +1,42 @@
+Prepily App: Quick Guide for Admins
+App Overview:
+Prepily is a multi-vendor platform that connects students with teachers. It allows teachers to upload educational content (video lectures, PDFs, and MCQs) and enables students to buy and access these courses for learning. The app also includes messaging and video calling features powered by ZEGOCLOUD APIs.
+
+Admin Role
+As an Admin, you play a crucial role in maintaining the quality of the platform by managing the approval process for teachers. Here's what you need to know:
+Key Responsibilities:
+Approve or Reject Teachers
+Access Pending Requests: Log in to the admin panel to view all teacher sign-up requests.
+Approval: Approve only qualified and trustworthy teachers.
+
+Teacher Role
+As a Teacher, you can create and sell courses to students worldwide. Here's how you can use the platform effectively:
+Key Responsibilities:
+Upload Courses:
+Create and upload educational content, including:
+Video Lectures
+PDF Notes
+MCQ Quizzes
+Ensure your content is high-quality and helpful for students.
+Manage Courses:
+Edit, update, or remove courses based on student feedback or new content.
+Set pricing for your courses.
+Engage with Students:
+Use the Messaging feature to communicate with your students for doubts and clarifications.
+Conduct Live Video Sessions using the video calling feature for better engagement.
+
+Student Role
+As a Student, Prepily allows you to buy and learn from a variety of courses uploaded by teachers. Here's how you can make the most of it:
+Key Features:
+Browse Courses:
+Explore courses across different categories.
+Read course descriptions and reviews before purchasing.
+Purchase and Learn:
+Buy courses and gain instant access to:
+Video Lectures for in-depth learning.
+PDF Notes for reference.
+MCQ Quizzes to test your knowledge.
+Interactive Learning:
+
+Use the Messaging feature to ask teachers questions.
+Attend Live Video Sessions for interactive lessons.

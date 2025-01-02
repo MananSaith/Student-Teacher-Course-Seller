@@ -5,6 +5,7 @@ import {
     deleteUser,
     getAllUsers,
     getUserById,
+    getByEmail,
     getUserWithCourses,
     updateUser,
 } from '../../controllers/teacherController/teacherController.js';
@@ -17,6 +18,8 @@ router.post('/create', createUser);
 router.get('/read', getAllUsers);
 // get single teacher by uid 
 router.get('/:uid', getUserById);
+// get teacher by email
+router.post('/email', getByEmail);
 // get all teacher and his cources available in DB 
 router.get('/:uid/courses', getUserWithCourses);
 

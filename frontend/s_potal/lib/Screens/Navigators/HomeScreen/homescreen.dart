@@ -21,6 +21,8 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final CourseController courseController = Get.put(CourseController());
   final TextEditingController filter = TextEditingController();
+  List<dynamic> averages = [];
+  double overallAverage = 0.0;
 
   @override
   void initState() {
@@ -76,6 +78,71 @@ class _HomescreenState extends State<Homescreen> {
               onChanged: (value) {
                 setState(() {}); // Triggers rebuild
               },
+            ),
+          ),
+
+          //SizedBox(height: height * 0.01),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Obx(() {
+                  return DropdownButtonFormField<String>(
+                    value: courseController.category.value,
+                    onChanged: (value) async {
+                      if (value != null) {
+                        courseController.category.value = value;
+
+                        if (courseController.category.value == "All Courses") {
+                          await courseController.fetchAllCourses();
+                        } else {
+                          await courseController.fetchCoursesByCategory(
+                              courseController.category.value);
+                        }
+                      }
+                    },
+                    items: <String>[
+                      "All Courses",
+                      'Algorithms',
+                      'Artificial Intelligence',
+                      'Computer Networks',
+                      'Database Systems',
+                      'Human-Computer Interaction',
+                      'Operating Systems',
+                      'Software Engineering',
+                      "Theoretical Computer Science",
+                      "Computer vision",
+                      "Computer Graphics",
+                      'Free Courses',
+                      "other"
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                            BorderSide(color: Colors.grey.shade300, width: 1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                            color: Colors.deepPurple.shade300, width: 1.5),
+                      ),
+                    ),
+                  );
+                }),
+              ],
             ),
           ),
           // GridView
@@ -165,7 +232,7 @@ class _HomescreenState extends State<Homescreen> {
       ),
       onTap: () {
         Get.to(
-          () => CourseDetailPage(),
+          () => const CourseDetailPage(),
           arguments: course,
         );
       },

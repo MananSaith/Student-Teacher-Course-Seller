@@ -11,6 +11,8 @@ import studentRoutes from './routes/studentsRoutes/studentsInfoRoutes.js';
 import totalAmountRoutes from './routes/studentsRoutes/totalAmountRoutes.js';
 import enrolledRoutes from './routes/studentsRoutes/enrolledRoutes.js';
 import  StudentProgressRoutes from './routes/studentsRoutes/ProgressRoutes.js';
+// average 
+import averageRoutes from './routes/teacherRoutes/averageRoutes.js';
 
 //app humara instance hai express ka 
 const app = express();
@@ -39,6 +41,7 @@ app.use('/api/studentsInfo', studentRoutes);
 app.use('/api/totalAmount', totalAmountRoutes);
 app.use('/api/CourceEnrolled', enrolledRoutes);
 app.use('/api/student-progress', StudentProgressRoutes);
+app.use('/api/averages', averageRoutes);
 // Serve static files
 app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
 

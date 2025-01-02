@@ -74,14 +74,78 @@ class CreateCourseScreen extends StatelessWidget {
                     ValidationBuilder().minLength(6).maxLength(25).build(),
               ),
               SizedBox(height: height * 0.02),
+              TextWidget(
+                  text: "Category",
+                  fSize: 16,
+                  fWeight: MyFontWeight.samiBold,
+                  textColor: MyColors.hint),
+              SizedBox(height: height * 0.01),
+              Obx(() {
+                return DropdownButtonFormField<String>(
+                  value: controller.category.value.isEmpty
+                      ? null
+                      : controller.category.value,
+                  onChanged: (value) {
+                    if (value != null) {
+                      if (value == 'Free Courses') {
+                        controller.updatePrice(0.0);
+                      }
+                      controller.category.value = value;
+                    }
+                  },
+                  items: <String>[
+                    'Algorithms',
+                    'Artificial Intelligence',
+                    'Computer Networks',
+                    'Database Systems',
+                    'Human-Computer Interaction',
+                    'Operating Systems',
+                    'Software Engineering',
+                    "Theoretical Computer Science",
+                    "Computer vision",
+                    "Computer Graphics",
+                    'Free Courses',
+                    "other"
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: Colors.grey.shade300, width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                          color: Colors.deepPurple.shade300, width: 1.5),
+                    ),
+                  ),
+                );
+              }),
+
+              SizedBox(height: height * 0.02),
 
               // Price
               buildTextField(
                   label: 'Price',
                   hintText: 'Enter course price',
                   keyboardType: TextInputType.number,
-                  onChanged: (value) =>
-                      controller.updatePrice(double.tryParse(value) ?? 0.0),
+                  onChanged: (value) => controller.updatePrice(
+                      controller.category.value == 'Free Courses'
+                          ? 0.0
+                          : double.tryParse(value) ?? 0.0),
                   validator: ValidationBuilder().minLength(3).build()),
               SizedBox(height: height * 0.02),
 

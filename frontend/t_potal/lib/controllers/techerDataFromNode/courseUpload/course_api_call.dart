@@ -29,6 +29,7 @@ class CourseService {
 
       // Add text fields
       request.fields['title'] = course.title;
+      request.fields['category'] = course.category;
       request.fields['description'] = course.description;
       request.fields['price'] = course.price.toString();
       request.fields['uid'] = course.uid;
@@ -118,6 +119,19 @@ class CourseService {
       return data;
     }
     return [];
+  }
+
+// Fetch courses by category
+   Future<List<Course>> fetchCoursesByCategory(String category) async {
+    final response = await http.get(Uri.parse("$baseUrl/category/$category"));
+
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final List<dynamic> data = jsonData['data'];
+      return data.map((course) => Course.fromJson(course)).toList();
+    } else {
+      throw Exception('Failed to load courses: ${response.body}');
+    }
   }
 
   Future<Course?> getCourseById(String id) async {

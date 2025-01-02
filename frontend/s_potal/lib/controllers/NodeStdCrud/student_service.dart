@@ -23,11 +23,7 @@ class StudentService {
 
   // Get all students
   Future<List<Student>> getAllStudents() async {
-    print(
-        "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
     final response = await http.get(Uri.parse('$baseUrl/read'));
-    print(
-        "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo ${response.statusCode}");
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
           .map((json) => Student.fromJson(json))

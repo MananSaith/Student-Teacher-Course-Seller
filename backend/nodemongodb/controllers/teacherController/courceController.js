@@ -9,13 +9,13 @@ import Course from '../../models/teacherModels/courcesModel.js';
             return res.status(400).json({ message: err });
         }
 
-        const { title, description, price, uid } = req.body;
+        const { title,category   , description, price, uid } = req.body;
         const image = req.files['image'] ? req.files['image'][0].path : null;
         const videoLectures = req.files['videoLectures'] ? req.files['videoLectures'].map(file => file.path) : [];
         const files = req.files['files'] ? req.files['files'].map(file => file.path) : [];
 
         try {
-            const newCourse = new Course({ title, image, description, price, videoLectures, files, uid });
+            const newCourse = new Course({ title, image,category, description, price, videoLectures, files, uid });
             const savedCourse = await newCourse.save(); 
             res.status(201).json(savedCourse);
         } catch (error) {
@@ -34,6 +34,33 @@ export const getAllCourses = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+// Get Courses by Category
+export const getCoursesByCategory = async (req, res) => {
+    const { category } = req.params;
+
+    try {
+        // Find courses matching the provided category
+        const courses = await Course.find({ category });
+
+        if (courses.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'No courses found in this category',
+            });
+        }
+
+        res.status(200).json( courses );
+    } catch (error) {
+        console.error('Error fetching courses by category:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server Error',
+            error: error.message,
+        });
+    }
+};
+
 
 // Get a single course by ID
 export const getCourseById = async (req, res) => {

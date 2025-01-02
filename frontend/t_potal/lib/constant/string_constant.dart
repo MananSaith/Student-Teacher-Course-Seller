@@ -1,6 +1,7 @@
 class MyText {
   static String appName = "Prepilly";
-  static String basicUrlApi = "http://192.168.1.7:3000";
+   static String ip = "192.168.1.104";
+  static String basicUrlApi = "http://$ip:3000";
   static int zegoChatId = 1683946580;
   static String zegoAppSign =
       "1a6169175c00f7881329baf6e860c2a6501941028b0f37a87dfbfc9bdda7067b";
@@ -11,6 +12,7 @@ class MyText {
 
   //login
   static String login = "Log In";
+  static String loginWithGoogle  = "Log In With Google";
   static String email = "Example@gmail.com";
   static String password = "example@123";
   static String continoueWithGoogle = "Sign Up With Google";

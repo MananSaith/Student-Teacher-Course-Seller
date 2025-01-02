@@ -62,7 +62,7 @@ class _EnrolledCourseState extends State<EnrolledCourse> {
             final course = courseController.enrollCourses[index];
             return GestureDetector(
               onTap: () {
-                Get.to(() => const CourseDetailsScreen(), arguments: course);
+                Get.to(() =>  CourseDetailsScreen(), arguments: course);
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 8.0),

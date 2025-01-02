@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
     },
     mcid: { 
         type: String, 
-        unique: true, 
         required: true 
     },
     verify: { 

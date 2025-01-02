@@ -45,6 +45,20 @@ export const getUserById = async (req, res) => {
     }
 };
 
+export const getByEmail = async  (req, res) => {
+    const { email } = req.body;
+    try {
+      const user = await User.findOne({ email });
+      if (user) {
+        res.status(200).json({ success: true });
+      } else {
+        res.status(404).json({ success: false });
+      }
+    } catch (error) {
+      res.status(500).json({ success: false, message: 'Server error', error });
+    }
+  };
+
 
 // Get Teacher with Courses by UID
 export const getUserWithCourses = async (req, res) => {

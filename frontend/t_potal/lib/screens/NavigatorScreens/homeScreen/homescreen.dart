@@ -10,6 +10,8 @@ import '../../../constant/string_constant.dart';
 import '../../../controllers/techerDataFromNode/courseUpload/course_curd_controller.dart';
 import '../../../controllers/techerDataFromNode/courseUpload/course_data_controller.dart';
 import '../../../widegts/container_decoration.dart';
+import '../initial/navigator_screen.dart';
+import 'course_detail_page.dart';
 import 'create_course_screen.dart';
 import 'earn_screen.dart';
 import 'profile_screen.dart';
@@ -120,54 +122,175 @@ class _HomescreenState extends State<Homescreen> {
                   itemCount: courseController.currentTecherCourses.length,
                   itemBuilder: (context, index) {
                     final course = courseController.currentTecherCourses[index];
-                    return Card(
-                      elevation: 4.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Image.network(
-                              '${MyText.basicUrlApi}/${course['image']}',
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Center(child: Icon(Icons.error));
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                    return InkWell(
+                      onTap: () {
+                        Get.to(
+                          () => CourseDetailPage(),
+                          arguments: course,
+                        );
+                      },
+                      onLongPress: () {
+                        Get.dialog(
+                          Dialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              alignment: Alignment.topCenter,
                               children: [
-                                Text(
-                                  course['title'] ?? '',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 30),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const SizedBox(
+                                          height: 50), // For icon space
+                                      const Text(
+                                        "Are you sure?",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        "This action cannot be undone. Do you want to delete this item?",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          // Cancel button
+                                          ElevatedButton(
+                                            onPressed: () => Get.back(),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.grey[300],
+                                              foregroundColor: Colors.black,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20,
+                                                      vertical: 10),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            child: const Text("Cancel"),
+                                          ),
+                                          // Delete button
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              try {
+                                                await courseController
+                                                    .deleteCourse(
+                                                        course["_id"]);
+                                                Get.snackbar("Delete",
+                                                    "Sucessfully delete");
+                                                Get.offAll(() =>
+                                                    const NavigatorScreen());
+                                              } catch (e) {
+                                                Get.snackbar(
+                                                    "Alert", "Error $e");
+                                              }
+                                              Get.back();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.redAccent,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20,
+                                                      vertical: 10),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            child: const Text("Delete"),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  course['description'] ?? '',
-                                  style: const TextStyle(color: Colors.grey),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Price: \$${course['price']}',
-                                  style: const TextStyle(
-                                      fontSize: 14, color: Colors.green),
+                                Positioned(
+                                  top: -40,
+                                  child: CircleAvatar(
+                                    radius: 40,
+                                    backgroundColor:
+                                        Colors.redAccent.withOpacity(0.1),
+                                    child: const Icon(
+                                      Icons.delete_forever,
+                                      size: 40,
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        );
+                      },
+                      child: Card(
+                        elevation: 4.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Image.network(
+                                '${MyText.basicUrlApi}/${course['image']}',
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Center(child: Icon(Icons.error));
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    course['title'] ?? '',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    course['description'] ?? '',
+                                    style: const TextStyle(color: Colors.grey),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'Price: \$${course['price']}',
+                                    style: const TextStyle(
+                                        fontSize: 14, color: Colors.green),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

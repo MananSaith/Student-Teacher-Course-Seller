@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constant/colorclass.dart';
+import '../../../controllers/Average/average_controller.dart';
+import '../../../controllers/CourseCrud/course_model.dart';
 import '../ChatScreen/ChatScreenList.dart';
 import 'document_lecture_list.dart';
 import 'quiz_screen.dart';
 import 'video_players.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
-  const CourseDetailsScreen({super.key});
+  CourseDetailsScreen({super.key});
+
+  final RxInt selectedRating = 0.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -188,10 +192,95 @@ class CourseDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  GestureDetector(
+                    onTap: () => showRatingDialog(course: course),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: MyColors.thirdPallet,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 6,
+                            offset: Offset(2, 2),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.star, size: 48, color: MyColors.camel),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Rate Us',
+                            style: TextStyle(
+                              color: MyColors.bgPallet,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void showRatingDialog({required Course course}) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "Rate Us",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(5, (index) {
+                      return IconButton(
+                        onPressed: () {
+                          selectedRating.value = index + 1; // Update rating
+                        },
+                        icon: Icon(
+                          Icons.star,
+                          color: index < selectedRating.value
+                              ? Colors.amber
+                              : Colors.grey,
+                          size: 30,
+                        ),
+                      );
+                    }),
+                  )),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  await AverageController()
+                      .addAverage(course.id!, selectedRating.value.toDouble());
+                  Get.back(); // Close dialog
+                  Get.snackbar(
+                    "Thank You",
+                    "You rated ${selectedRating.value} stars!",
+                    snackPosition: SnackPosition.BOTTOM,
+                  );
+                },
+                child: const Text("Submit"),
+              ),
+            ],
+          ),
         ),
       ),
     );

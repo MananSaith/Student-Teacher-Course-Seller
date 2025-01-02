@@ -3,6 +3,7 @@ import express from 'express';
 import {
     createCourse,
     deleteCourseById,
+    getCoursesByCategory ,
     getAllCourses,
     getCourseById,
     getCourseByIdAndUid,
@@ -22,6 +23,8 @@ router.get('/getCourseById/:id', getCourseById);
 router.get('/teacher/:uid/:courseId', getCourseByIdAndUid);
 /// get all cources acording to specific teacher uid
 router.get('/teacher/:uid', getCoursesByUid);
+// Route to get courses by category
+router.get('/category/:category', getCoursesByCategory);
 
 //update and delete by id 
 router.put('/updateCourseById/:id', updateCourseById);

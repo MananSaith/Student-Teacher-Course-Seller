@@ -13,6 +13,7 @@ class Course {
   final String uid;
   final String mcid;
   final String imagePath;
+  final String category;
   String? id;
 
   Course(
@@ -20,6 +21,7 @@ class Course {
       this.byteImage,
       required this.description,
       required this.price,
+      required this.category,
       required this.videoLectures,
       required this.files,
       required this.uid,
@@ -29,6 +31,7 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
+      category: json['category'],
       title: json['title'],
       imagePath: json['image'],
       description: json['description'],
@@ -43,6 +46,7 @@ class Course {
 
   Map<String, dynamic> toJson() {
     return {
+      "category": category,
       'title': title,
       'image': imagePath,
       'description': description,

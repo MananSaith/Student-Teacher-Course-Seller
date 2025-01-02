@@ -13,10 +13,10 @@ import '../../../controllers/techerDataFromNode/teacherInfo/teacher_crud.dart';
 import '../../../utils/custom_loader.dart';
 import '../../../widegts/custum_button.dart';
 import '../../../widegts/textwidget.dart';
-import 'homescreen.dart';
+import '../initial/navigator_screen.dart';
 
 class AddMCQPage extends StatefulWidget {
-  AddMCQPage({super.key});
+  const AddMCQPage({super.key});
 
   @override
   State<AddMCQPage> createState() => _AddMCQPageState();
@@ -292,6 +292,7 @@ class _AddMCQPageState extends State<AddMCQPage> {
 
   void uploadCompleteCourse() async {
     final course = Course(
+      category: controller.category.value,
         description: controller.description.value,
         title: controller.title.value,
         imagePath: controller.imagePath.value,
@@ -305,7 +306,7 @@ class _AddMCQPageState extends State<AddMCQPage> {
     await courseController.createCourse(course).then((value) {
       // Clear fields for the next entry
       clearFields();
-      Get.offAll(() => const Homescreen());
+      Get.offAll(() => const NavigatorScreen());
     }).catchError((v) {});
   }
 }

@@ -13,6 +13,7 @@ class CourseDataController extends GetxController {
   var price = 0.0.obs;
   var description = ''.obs;
   var imagePath = "".obs;
+  var category = "".obs;
   var mcqLenght = 0.obs;
 
   RxList<PlatformFile> videoList = <PlatformFile>[].obs;

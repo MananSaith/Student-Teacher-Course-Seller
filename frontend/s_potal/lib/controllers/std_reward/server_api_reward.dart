@@ -12,7 +12,6 @@ class ApiService {
   Future<List<StudentProgress>> fetchProgressByUid(String uid) async {
     try {
       final response = await _client.get(Uri.parse('$baseUrl/uid/$uid'));
-      print("3333333333333 $uid");
       if (response.statusCode == 200) {
         List data = jsonDecode(response.body)['data'];
         return data.map((json) => StudentProgress.fromJson(json)).toList();

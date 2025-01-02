@@ -12,6 +12,7 @@ class MyText {
 
   //login
   static String login = "Log In";
+  static String loginWithGoogle = "Log In with Google";
   static String email = "Example@gmail.com";
   static String password = "example@123";
   static String continoueWithGoogle = "Sign Up With Google";

@@ -6,6 +6,7 @@ import 'package:s_potal/controllers/teacher_earn/teacher_json.dart';
 import '../../../constant/colorclass.dart';
 import '../../../constant/font_weight.dart';
 import '../../../constant/string_constant.dart';
+import '../../../controllers/Average/average_controller.dart';
 import '../../../controllers/Enrolled course/cource_enrolled.dart';
 import '../../../controllers/Enrolled course/cource_enrolled_controller.dart';
 import '../../../controllers/teacher_earn/teacher_crud.dart';
@@ -13,15 +14,44 @@ import '../../../widegts/textwidget.dart';
 import '../navigator_screen.dart';
 
 // ignore: must_be_immutable
-class CourseDetailPage extends StatelessWidget {
+class CourseDetailPage extends StatefulWidget {
+
+  const CourseDetailPage({super.key});
+
+  @override
+  State<CourseDetailPage> createState() => _CourseDetailPageState();
+}
+
+class _CourseDetailPageState extends State<CourseDetailPage> {
   final Map<String, dynamic> course = Get.arguments;
+
   final uid = FirebaseAuth.instance.currentUser!.uid;
+
   final CourceEnrolledController enrolledController =
       Get.put(CourceEnrolledController());
+
   double? earn;
+
   final TeacherCrud teacherCrudController = Get.put(TeacherCrud());
 
-  CourseDetailPage({super.key});
+    List<dynamic> averages = [];
+  int overallAverage = 0;
+
+  @override
+  void initState() {
+    start();
+    super.initState();
+  }
+
+  void start() async {
+    final data = await AverageController().getAverageByCourse(course['_id']);
+    if (data != null) {
+      setState(() {
+        averages = data['averages'];
+        overallAverage = data['overallAverage'];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +131,46 @@ class CourseDetailPage extends StatelessWidget {
               style: const TextStyle(fontSize: 16.0, color: Colors.black54),
             ),
             const SizedBox(height: 16.0),
-
+            // Price
+            Container(
+              padding: const EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: MyColors.primaryPallet.withOpacity(0.1),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Course Rating",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    overallAverage.toStringAsFixed(0),
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Row(
+                    children: List.generate(
+                      5,
+                      (index) => Icon(
+                        Icons.star,
+                        color: index < overallAverage
+                            ? Colors.orange
+                            : Colors.grey,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+ const SizedBox(height: 8.0),
             // Price
             Container(
               padding: const EdgeInsets.all(12.0),
