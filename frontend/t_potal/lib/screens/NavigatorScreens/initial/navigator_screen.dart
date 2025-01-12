@@ -3,6 +3,7 @@ import 'package:t_potal/constant/colorclass.dart';
 
 import '../ChatScreen/ChatScreenList.dart';
 import '../homeScreen/homescreen.dart';
+import '../video call/video_screen.dart';
 
 class NavigatorScreen extends StatefulWidget {
   const NavigatorScreen({super.key});
@@ -18,7 +19,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   final List<Widget> _screens = [
     const Homescreen(),
     const ZIMKitDemoHomePage(),
-    const Center(child: Text('video pending')),
+    CallPageScreen(),
   ];
 
   void _onTabTapped(int index) {
